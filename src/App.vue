@@ -1,78 +1,38 @@
 <template>
-  <header>
-    <nav class="bg-neutral-800 h-5 w-full">
-      <ul>
-        <li><a href="">AllProducts</a></li>
-        <li><a href="">Smartphones</a></li>
-        <li><a href="">Notebooks</a></li>
-      </ul>
-      <button class="bg-blue-400 h-5 flex ">
-        Cart
-        <img class="cart" src="../image/cart-white.png" alt="Cart Icon">
-      </button>
-    </nav>
-  </header>
-<main>
-  <article>
-    <h1>PROYECTO ALTERNATIVO</h1>
-    <div>
-      <img src="{{productLink}}" alt="{{productName}}">
-      <h2>{{productName}}</h2>
-      <div>
-        <span>{{productPrice}}</span>
-        <span>{{productEasyPaid}}</span>
-      </div>
-      <button>Add to cart</button>
-    </div>
-    
-  </article>
-</main>
+  <Menu />
+  <!-- <ul class="container mx-auto gap-6 mt-16 flex flex-wrap"> -->
+  <ul class="grid grid-cols-4 container mx-auto gap-6 mt-16">
+    <Products v-for="item in items" :prod="prod" :author="authorName" />
+  </ul>
 </template>
 
 <script setup>
-import {ref} from "vue";
+import Menu from "./components/Menu.vue";
+import Products from "./components/Products.vue";
+import { ref } from "vue";
+
+const items = ref([]);
+const authorName = ref("AleArends");
+
+// URL = "https://gateway.marvel.com:443/v1/public/characters?name=flash&ts=1&apikey=0a5566782d241ee50cef64553a6394f2&hash=e34bfaff86a20801ce2e83c783cf6f73";
+
+URL = 'https://api.punkapi.com/v2/beers';
+
+
+async function getData() {
+  const res = await fetch(URL);
+  const finalRes = await res.json();
+
+  items.value = finalRes;
+  console.log("la estructura es:", items.value);
+
+  // console.log(products.value);
+}
+
+getData();
 
 </script>
 
 <style scoped>
 
-
-nav{
-  height: 70px;
-  box-sizing: border-box;
-  padding: 0.5em;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-
-ul {
-    width: 30%;
-    line-height: 1.15;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: nowrap;
-}
-
-button{
-  width: 123px;
-  height: 36px;
-}
-
-.cart{
-  width: 22px;
-  margin-left: 2%;
-
-}
-
-.flex {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
 </style>
