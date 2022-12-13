@@ -1,13 +1,12 @@
 <template>
-    <button class="bg-green-400 h-10 w-full rounded text-center text-white py-1 px-6 mt-3 flex flex-row">
-        {{ text }}
-        <img class="h-5" src="../assets/image/cart-white.png" alt="Cart Icon">
-    </button>
-</template>
+  <button class="text-white py-1 px-6 mt-3 w-full bg-green-500 rounded" @click="$emit('addToCart')">
+    {{ text }}
+  </button>
 
-<script setup>
-const props = defineProps(["text"]);
-
-</script>
-
-<style scoped></style>
+  </template>
+  
+  <script setup>
+    const props = defineProps(["text"]);
+  </script>
+  
+  <style scoped></style>
